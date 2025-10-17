@@ -1,0 +1,212 @@
+/* Використання CSS-змінних для легкого управління кольорами та розмірами */
+:root {
+    --header-bg-color: #635c52;
+    --left-sidebar-bg: #b3aca0;
+    --right-sidebar-bg: #b3aca0;
+    --main-content-bg: #ffffff;
+    --bottom-info-bg: #f2eee9;
+    --footer-bg-color: #4c463f;
+    --sidebar-width: 250px; /* Збільшено для кращої демонстрації */
+    --header-height: 119px;
+    --text-color: #4c463f; 
+    --header-text-color: rgb(221, 212, 194);
+    --padding-size: 20px;
+}
+
+/* ----------------------------------- */
+/* Загальні скидання та стилі */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-color);
+    /* Видаляємо display: flex; з body, оскільки container тепер керує макетом */
+    min-height: 100vh;
+    background-color: var(--left-sidebar-bg);
+}
+
+/* ----------------------------------- */
+/* GRID CONTAINER - Ключове завдання */
+.container {
+    /* 1. Створення сітки (Grid Container) */
+    display: grid;
+    
+    /* 2. Визначення колонок (Grid Template Columns) */
+    /* Колонка 1 (Лівий сайдбар) | Колонка 2 (Основний контент) | Колонка 3 (Правий сайдбар) */
+    grid-template-columns: var(--sidebar-width) 1fr var(--sidebar-width);
+    
+    /* 3. Визначення рядків (Grid Template Rows) */
+    /* Рядок 1 (Header) | Рядок 2 (Контент+Сайдбари) | Рядок 3 (Footer) */
+    grid-template-rows: auto 1fr auto;
+    
+    /* 4. Визначення зон (Grid Template Areas) */
+    grid-template-areas: 
+        "header header header"      /* Блок 1 - на всю ширину */
+        "left-side main right-side" /* Блоки 2, 3+5, 4 */
+        "footer footer footer";     /* Блок 6 - на всю ширину */
+    
+    /* Забезпечуємо, що контейнер займає всю висоту вікна */
+    min-height: 100vh; 
+    width: 100%; /* Займає всю доступну ширину body */
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 5. Розміщення елементів по зонах (Grid Area Assignment) */
+
+/* Блок 1 (Header) */
+header {
+    grid-area: header;
+    background-color: var(--header-bg-color);
+    background-image: url("https://i.pinimg.com/1200x/77/55/86/775586f660a50f316ede3bddc549a428.jpg");
+    background-size: cover;
+    background-position: center;
+    height: var(--header-height);
+    padding: var(--padding-size);
+    display: flex; /* Flexbox для внутрішнього вирівнювання тексту */
+    align-items: center; 
+    justify-content: flex-start;
+    color: var(--header-text-color);
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+}
+
+/* Блок 2 (Лівий сайдбар) */
+.sidebar.left {
+    grid-area: left-side;
+    background-color: var(--left-sidebar-bg);
+    padding: var(--padding-size);
+    /* Видалено flex-shrink: 0 та width: var(--sidebar-width); - це контролюється grid-template-columns */
+}
+
+/* Блоки 3 і 5 (Основний контент) */
+.main-and-center-content {
+    grid-area: main;
+    /* Використовуємо Flexbox для вертикального розміщення Блоків 3 і 5 */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Важливо для внутрішнього скролу */
+}
+
+/* Блок 3 */
+.main-and-center-content main {
+    background-color: var(--main-content-bg);
+    padding: var(--padding-size);
+    flex: 1; /* Займає всю доступну висоту в .main-and-center-content */
+    overflow-y: auto; /* Дозволяє контенту скролитися, якщо він довший за висоту зони */
+}
+
+/* Блок 5 */
+.bottom-info {
+    background-color: var(--bottom-info-bg);
+    padding: 15px var(--padding-size);
+    flex-shrink: 0;
+}
+
+/* Блок 4 (Правий сайдбар) */
+.sidebar.right {
+    grid-area: right-side;
+    background-color: var(--right-sidebar-bg);
+    padding: var(--padding-size);
+    /* Видалено стилі, пов'язані з position: fixed; */
+}
+
+/* Блок 6 (Footer) */
+footer {
+    grid-area: footer;
+    background-color: var(--footer-bg-color);
+    padding: var(--padding-size);
+    color: var(--header-text-color);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-right: var(--sidebar-width);
+
+}
+
+/* ----------------------------------- */
+/* Додаткові стилі (без змін) */
+header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+footer p {
+    margin: 0;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    display: block;
+    padding: 5px;
+    transition: background-color 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+h1, h2, h3 {
+    font-family: 'Lora', serif;
+    font-weight: 600;
+}
+
+p, li, a {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+}
+
+.responsive-img {
+    max-width: 60%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+@media (max-width: 768px) {
+    
+    .content-wrapper {
+        flex-direction: column; 
+    }
+    aside.sidebar {
+        width: 100%;
+    }
+    aside.sidebar.right {
+        order: 3;
+    }
+    
+    .main-and-center-content {
+        width: 100%;
+        order: 2; 
+    }
+    
+    footer {
+        margin-right: 0; 
+        justify-content: center; 
+        flex-direction: column; 
+        text-align: center;
+    }
+    
+    footer p {
+        margin: 5px 0;
+    }
+
+    .responsive-img {
+        max-width: 90%; 
+    }
+}

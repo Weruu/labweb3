@@ -1,0 +1,213 @@
+/* Використання CSS-змінних для легкого управління кольорами та розмірами */
+:root {
+    --header-bg-color: #635c52;
+    --left-sidebar-bg: #b3aca0;
+    --right-sidebar-bg: #b3aca0;
+    --main-content-bg: #ffffff;
+    --bottom-info-bg: #f2eee9;
+    --footer-bg-color: #4c463f;
+    --sidebar-width: 200px; /* Фіксована ширина сайдбарів */
+    --header-height: 119px;
+    --text-color: #4c463f; /* Додано змінну для основного тексту */
+    --header-text-color: rgb(221, 212, 194);
+}
+
+/* Основні стилі тіла та контейнера */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--left-sidebar-bg); /* Задаємо нейтральний фон */
+    display: flex; /* Flexbox для body, щоб container зайняв всю висоту */
+    min-height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-color);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* ----------------------------------- */
+/* Блок 1: Шапка (Header) */
+header {
+    background-color: var(--header-bg-color);
+    padding: 20px;
+    box-sizing: border-box;
+    background-image: url("https://i.pinimg.com/1200x/77/55/86/775586f660a50f316ede3bddc549a428.jpg");
+    background-size: cover;
+    background-position: center;
+    height: var(--header-height);
+    
+    /* 2. Фокус на компонентах: Flexbox для впорядкування в header */
+    display: flex;
+    align-items: center; /* Вирівнювання по вертикалі */
+    justify-content: flex-start; /* Вирівнювання по горизонталі (ліворуч) */
+    
+    color: var(--header-text-color);
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0; /* Прибираємо стандартні марджини */
+    /* Вирівнювання тепер контролюється контейнером flex */
+}
+
+/* ----------------------------------- */
+/* Центральний обгортковий блок (Блоки 2, 3+5, 4) */
+.content-wrapper {
+    /* 1. Забезпечте чистий Flex-макет: Основний Flex-контейнер */
+    display: flex;
+    flex: 1; /* Дозволяє займати доступну висоту між header та footer */
+    gap: 0; /* Немає проміжків між основними блоками */
+}
+
+/* ----------------------------------- */
+/* Сайдбари та Основний контент */
+aside.sidebar {
+    background-color: var(--left-sidebar-bg);
+    padding: 20px;
+    box-sizing: border-box;
+    width: var(--sidebar-width);
+    flex-shrink: 0; /* Забороняємо сайдбарам стискатися */
+    display: flex;
+    flex-direction: column;
+}
+
+/* 1. Заміна position: fixed для правого сайдбара */
+aside.sidebar.right {
+    /* Видаляємо: position: fixed; right: 0; top: 0; bottom: 0; */
+    /* Залишаємось частиною flex-контейнера `.content-wrapper` */
+    background: var(--right-sidebar-bg);
+    /* Ширина вже задана `width: var(--sidebar-width);` вище */
+}
+
+/* Центральна частина контенту (main + bottom-info) */
+.main-and-center-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Займає всю доступну ширину */
+    overflow: hidden;
+    /* Видаляємо margin-right: var(--sidebar-width);, оскільки правий сайдбар
+       тепер є частиною потоку Flexbox і займає своє місце природним чином */
+}
+
+main {
+    background-color: var(--main-content-bg);
+    padding: 20px;
+    flex: 1; /* Дозволяє main займати всю доступну висоту в .main-and-center-content */
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.bottom-info {
+    background-color: var(--bottom-info-bg);
+    padding: 15px 20px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+/* ----------------------------------- */
+/* Блок 6: Футер (Footer) */
+footer {
+    background-color: var(--footer-bg-color);
+    padding: 20px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    color: var(--header-text-color);
+    
+    /* 2. Фокус на компонентах: Flexbox для впорядкування в footer */
+    display: flex;
+    justify-content: space-around; /* Розподіл елементів по ширині */
+    align-items: center; /* Вирівнювання по вертикалі */
+    margin-right: var(--sidebar-width);
+    /* Видаляємо margin-right: var(--sidebar-width);, оскільки він більше не потрібен
+       через те, що правий сайдбар не фіксований і не "випадає" з потоку */
+}
+
+footer p {
+    margin: 0;
+}
+
+/* ----------------------------------- */
+/* Стилі для меню (ul в сайдбарах) */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+    /* 2. Фокус на компонентах: Впорядкування меню (наприклад, вертикально, як зазвичай) */
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Невеликий проміжок між елементами списку */
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    display: block;
+    padding: 5px;
+    transition: background-color 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Стилі для заголовків та тексту */
+h1, h2, h3 {
+    font-family: 'Lora', serif;
+    font-weight: 600;
+}
+
+/* Основний текст */
+p, li, a {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+}
+
+/* Адаптивність для зображення */
+.responsive-img {
+    max-width: 60%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+    
+    .content-wrapper {
+        flex-direction: column; 
+    }
+    aside.sidebar {
+        width: 100%;
+    }
+    aside.sidebar.right {
+        order: 3;
+    }
+    
+    .main-and-center-content {
+        width: 100%;
+        order: 2; 
+    }
+    
+    footer {
+        margin-right: 0; 
+        justify-content: center; 
+        flex-direction: column; 
+        text-align: center;
+    }
+    
+    footer p {
+        margin: 5px 0;
+    }
+
+    .responsive-img {
+        max-width: 90%; 
+    }
+}

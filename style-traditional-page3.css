@@ -1,0 +1,154 @@
+/* ----------------------------------- */
+/* КЛАС CLEARFIX - КЛЮЧОВИЙ ДЛЯ FLOAT-ВЕРСТКИ */
+.content-wrapper::after {
+    content: "";
+    display: table;
+    clear: both; 
+}
+/* ----------------------------------- */
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #b3aca0; 
+    font-family: 'Montserrat', sans-serif;
+    color: #4c463f;
+}
+
+.container {
+    margin: 0 auto; /* Додаємо margin: 0 auto, щоб контейнер був по центру */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+header {
+    background-color: #635c52;
+    padding: 20px;
+    background-image: url("https://i.pinimg.com/1200x/77/55/86/775586f660a50f316ede3bddc549a428.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 100px;
+    color: rgb(221, 212, 194);
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0; 
+}
+
+/* САЙДБАРИ */
+aside.sidebar {
+    background-color: #b3aca0;
+    padding: 20px;
+    width: 150px; /* Ширина лівого сайдбару */
+    height: 825px;
+    float: left;
+}
+aside.sidebar.right {
+    float: right;
+    width: 150px; /* Уніфікуємо ширину правого сайдбару (була не вказана) */
+}
+
+/* ЦЕНТРАЛЬНИЙ КОНТЕНТ */
+.main-and-center-content {
+    overflow: hidden; /* Класичний хак для заповнення простору */
+}
+
+main {
+    background-color: #ffffff;
+    padding: 20px;
+    }
+
+.bottom-info {
+    background-color: #f2eee9;
+    padding: 11px 20px; /* Додано padding для візуального відокремлення */
+}
+
+/* ФУТЕР */
+footer {
+    background-color: #4c463f;
+    padding: 20px;
+    color: rgb(221, 212, 194);
+    
+    /* Зміна: Встановлюємо відступ від лівого краю (150px) + невеликий запас */
+    margin-left: 0; 
+    /* Зміна: Прибираємо відступ справа, оскільки правий сайдбар буде його перекривати */
+    margin-right: 190px; 
+    
+}
+
+footer p {
+    margin: 0;
+}
+
+/* СТИЛІ МЕНЮ (як у попередніх версіях) */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+    /* ВИДАЛЕНО: gap: 5px; */
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #4c463f;
+    display: block;
+    padding: 5px;
+    transition: background-color 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+h1, h2, h3 {
+    font-family: 'Lora', serif;
+    font-weight: 600;
+}
+
+p, li, a {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+}
+
+.responsive-img {
+    max-width: 60%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+@media (max-width: 768px) {
+    
+    .content-wrapper {
+        flex-direction: column; 
+    }
+    aside.sidebar {
+        width: 100%;
+    }
+    aside.sidebar.right {
+        order: 3;
+    }
+    
+    .main-and-center-content {
+        width: 100%;
+        order: 2; 
+    }
+    
+    footer {
+        margin-right: 0; 
+        justify-content: center; 
+        flex-direction: column; 
+        text-align: center;
+    }
+    
+    footer p {
+        margin: 5px 0;
+    }
+
+    .responsive-img {
+        max-width: 90%; 
+    }
+}
